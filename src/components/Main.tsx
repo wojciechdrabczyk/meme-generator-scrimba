@@ -14,30 +14,25 @@ const Main: React.FC = () => {
         imageUrl: "http://i.imgflip.com/1bij.jpg"
     })
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = event.currentTarget
-        setMeme(prevState => ({
+    const handleChange = (field: keyof Meme, event: React.ChangeEvent<HTMLInputElement>) => {
+        const {value} = event.currentTarget
+        setMeme((prevState: Meme) => ({
             ...prevState,
-            [name]: value
+            [field]: value
         }))
     }
     return (
-        <>
             <main>
                 <div className={"form"}>
                     <label>Top Text
                         <input type={"text"}
                                placeholder={"One does not simply"}
-                               name={"topText"}
-                               onChange={handleChange}
-                        />
+                               onChange={(evt) => handleChange("topText", evt)}                        />
                     </label>
                     <label>Bottom Text
                         <input type={"text"}
                                placeholder={"Walk into mordor"}
-                               name={"bottomText"}
-                               onChange={handleChange}
-                        />
+                               onChange={(evt) => handleChange("bottomText", evt)}                        />
                     </label>
                     <button>Get a new meme image</button>
                 </div>
@@ -47,7 +42,6 @@ const Main: React.FC = () => {
                     <span className={"bottom"}>{meme.bottomText}</span>
                 </div>
             </main>
-        </>
     )
 }
 export default Main
